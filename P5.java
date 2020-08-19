@@ -69,6 +69,11 @@ public class P5 {
     Cell start = start_finish_cells[0];
     Cell finish = start_finish_cells[1];
 
+    // Q2: Enter the successor matrix of the maze
+    result_file_writer.append("@succ\n");
+    result_file_writer.append(maze_parser.getSuccessorMatrixString());
+    result_file_writer.flush();
+
     // close result file_writer
     result_file_writer.append("@answer_10\nNone");
     result_file_writer.close();

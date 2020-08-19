@@ -73,4 +73,13 @@ public class Cell {
   public void setNeighbors(ArrayList<Cell> neighbors) {
     this.neighbors = neighbors;
   }
+
+  /**
+   * public access point for neighbors
+   * 
+   * @return ArrayList contains information of neighboring cells
+   */
+  public ArrayList<Cell> getNeighbors() {
+    return neighbors;
+  }
 }

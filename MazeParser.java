@@ -268,4 +268,48 @@ public class MazeParser {
 
     return start_finish_cells;
   }
+
+  // TODO: Drawing
+
+  /**
+   * Generate stirng of successor matrix of the maze
+   * contains h lines, each line containing w strings, comma separated,
+   * each strings represent the list of possible successors, a subset of the characters "U" "D" "L" "R"
+   * 
+   * @return successor matrix string
+   */
+  public String getSuccessorMatrixString() {
+    StringBuilder sb = new StringBuilder();
+
+    for(int row = 0; row < maze_height; row++) {
+      for(int col = 0; col < maze_width; col++) {
+        ArrayList<String> neighbors = maze.get(String.valueOf(col + "," + row));
+
+        // Iterate through all successors
+        for(String successor : neighbors) {
+          switch(successor) {  // Able to use String in switch statement (JDK 7 or after)
+            case "U": sb.append("U");
+                      break;
+            case "D": sb.append("D");
+                      break;
+            case "L": sb.append("L");
+                      break;
+            case "R": sb.append("R");
+                      break;
+            default: System.out.println("Error, Invalid Successor");
+                     System.exit(1);
+          }
+        }
+
+        // Separated by comma
+        if(col != maze_width - 1) {
+          sb.append(",");
+        }
+      }
+
+      sb.append("\n"); // add new line
+    }
+
+    return sb.toString();
+  }
 }

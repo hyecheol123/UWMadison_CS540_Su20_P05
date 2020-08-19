@@ -18,8 +18,10 @@ Parse `svg` format image file to text
 
 ## Tasks
 - Parse maze
-  - Related Question: Q2
+  - Related Question: Q1, Q2
 
 ## Questions
+- **Q1**  
+  (`plot`) Enter the plot of the maze
 - **Q2**  
   (`succ`) Enter the successor matrix of the maze (h lines, each line containing w strings, comma separated, each strings represent the list of possible successors, a subset of the characters "U" "D" "L" "R").

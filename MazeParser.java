@@ -269,7 +269,67 @@ public class MazeParser {
     return start_finish_cells;
   }
 
-  // TODO: Drawing
+  /**
+   * Generate string of maze plot
+   * using | for vertical walls and -- for horizontal walls and + for intersections
+   * 
+   * @return maze plot string
+   */
+  public String getMazePlotString() {
+    StringBuilder sb = new StringBuilder();
+
+    for(int row = 0; row < maze_height; row++) {
+      // Checking Upper Cells
+      sb.append("+");
+      for(int col = 0; col < maze_width; col++) {
+        ArrayList<String> neighbors = maze.get(String.valueOf(col + "," + row));
+
+        // Check for existence of "U" in neighbors array
+        if(neighbors.contains("U")) {
+          // not having wall above
+          sb.append("  +");
+        } else {
+          // having wall above
+          sb.append("--+");
+        }
+      }
+      sb.append("\n");
+
+      // Checking Right Cells
+      sb.append("|");
+      for(int col = 0; col < maze_width; col++) {
+        ArrayList<String> neighbors = maze.get(String.valueOf(col + "," + row));
+
+        // Check for existence of "R" in neighbors array
+        if(neighbors.contains("R")) {
+          // not having wall rightside
+          sb.append("   ");
+        } else {
+          // having wall rightside
+          sb.append("  |");
+        }
+      }
+      sb.append("\n");
+    }
+
+    // Check for Bottom Wall (Exit)
+    sb.append("+");
+    for(int col = 0; col < maze_width; col++) {
+      ArrayList<String> neighbors = maze.get(String.valueOf(col + "," + (maze_height - 1)));
+
+      // Check for existence of "D" in neighbors array
+      if(neighbors.contains("D")) {
+        // not having wall below
+        sb.append("  +");
+      } else {
+        // having wall below
+        sb.append("--+");
+      }
+    }
+    sb.append("\n");
+
+    return sb.toString(); // generate string
+  }
 
   /**
    * Generate stirng of successor matrix of the maze

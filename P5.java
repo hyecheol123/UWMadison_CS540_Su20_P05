@@ -68,11 +68,19 @@ public class P5 {
     Cell[] start_finish_cells = maze_parser.generateMaze();
     Cell start = start_finish_cells[0];
     Cell finish = start_finish_cells[1];
+    System.out.println("Finish Parsing SVG Image");
+
+    // Q1: Enter the plot of the maze
+    result_file_writer.append("@plot\n");
+    result_file_writer.append(maze_parser.getMazePlotString());
+    result_file_writer.flush();
+    System.out.println("Finish Q1");
 
     // Q2: Enter the successor matrix of the maze
     result_file_writer.append("@succ\n");
     result_file_writer.append(maze_parser.getSuccessorMatrixString());
     result_file_writer.flush();
+    System.out.println("Finish Q2");
 
     // close result file_writer
     result_file_writer.append("@answer_10\nNone");

@@ -30,6 +30,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -82,8 +84,69 @@ public class P5 {
     result_file_writer.flush();
     System.out.println("Finish Q2");
 
+    // Q5: Enter the list of states searched by BFS
+    boolean[][] is_visited = new boolean[WIDTH][HEIGHT]; // matrix to save BFS visited Cell information
+    System.out.println("BFS Visited Node Count: " + bfs(start, finish, is_visited)); // search path by bfs
+    result_file_writer.append("@bfs\n");
+    for(int row = 0; row < HEIGHT; row++) {
+      for(int col = 0; col < WIDTH; col++) {
+        if(is_visited[col][row] == true) {
+          result_file_writer.append("1");
+        } else {
+          result_file_writer.append("0");
+        }
+        if(col != (WIDTH - 1)) {
+          result_file_writer.append(",");
+        }
+      }
+      result_file_writer.append("\n");
+    }
+    System.out.println("Finish Q5");
+
     // close result file_writer
     result_file_writer.append("@answer_10\nNone");
     result_file_writer.close();
+  }
+
+  /**
+   * BFS algorithm
+   * 
+   * @param start Cell indicates starting point of the maze
+   * @param finish Cell indicates finish point of the maze
+   * @param is_visited 2D boolean matrix indicating whether each cell has visited or not
+   * @return Number of visited cells while performing BFS
+   */
+  private static int bfs(Cell start, Cell finish, boolean[][] is_visited) {
+    int num_visited = 0;
+    LinkedList<Cell> queue = new LinkedList<>();
+    boolean reached = false;
+
+    // Start by adding start cell on the queue
+    queue.add(start);
+    is_visited[start.getX()][start.getY()] = true;
+    num_visited++;
+
+    // Terminal Condition: Queue is empty, or reached to the end of maze
+    while(!queue.isEmpty() && !reached) {
+      Cell current = queue.poll(); // get head element from queue (remove the head)
+
+      // Check for termination
+      if(current.getX() == finish.getX() && current.getY() == finish.getY()) {
+        reached = true;
+        continue; // no need to check for neighbors
+      }
+
+      ArrayList<Cell> neighbors = current.getNeighbors();
+      for(Cell neighbor : neighbors) {
+        // only put neighboring Cell to the queue when it is not visited
+        if(is_visited[neighbor.getX()][neighbor.getY()] == false) {
+          is_visited[neighbor.getX()][neighbor.getY()] = true;
+          queue.add(neighbor);
+          num_visited++;
+        }
+      }
+    }
+
+    return num_visited;
   }
 }

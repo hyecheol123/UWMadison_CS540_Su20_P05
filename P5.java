@@ -31,6 +31,7 @@ import java.io.FileWriter;
 import java.io.File;
 import java.util.Scanner;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -213,22 +214,14 @@ public class P5 {
       reached = true;
     }
 
-    // retrive parent
-    Cell parent = current.getParent();
-
     // For all successor, call DFS recursively
     ArrayList<Cell> successors = current.getNeighbors();
     for(Cell successor : successors) {
       if(reached == false) { // when reached to the final state, no need to search more
-        if(parent == null) { // no need to check parents' index
+        // No need to search visited node again
+        if(is_visited[successor.getX()][successor.getY()] != true) {
           successor.setParent(current); // set parent of succssor (current is successor's parent)
           reached = dfs(successor, finish, is_visited, reached); // call dfs with successor
-        } else {
-          // should not call dfs on parent
-          if(!((parent.getX() == successor.getX()) && parent.getY() == successor.getY())) {
-            successor.setParent(current); // set parent of succssor (current is successor's parent)
-            reached = dfs(successor, finish, is_visited, reached); // call dfs with successor
-          }
         }
       } else {
         break;

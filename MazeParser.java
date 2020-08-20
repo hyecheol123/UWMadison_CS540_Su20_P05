@@ -187,7 +187,7 @@ public class MazeParser {
     finish_coordinate[1] = maze_height - 1; // y coordiante of finish point, assuming that it is at the bottom
 
     for(int i = 0; i < maze_width; i++) {
-      ArrayList<String> neighbors = maze.get(String.valueOf(maze_height - 1) + "," + String.valueOf(i));
+      ArrayList<String> neighbors = maze.get(String.valueOf(i) + "," + String.valueOf(maze_height - 1));
 
       if(neighbors != null) { // for the cells whose neighbors exist,
         // search for the cell that does not have wall on the bottom
@@ -241,24 +241,24 @@ public class MazeParser {
         Cell adjacent_cell;
         // Retrieve Current Cell's position
         int sep_index = key.indexOf(",");
-        int x = Integer.valueOf(key.substring(sep_index + 1, key.length())); // column
-        int y = Integer.valueOf(key.substring(0, sep_index)); // row
+        int y = Integer.valueOf(key.substring(sep_index + 1, key.length())); // row
+        int x = Integer.valueOf(key.substring(0, sep_index)); // column
 
         // Check for neighbors
         if(neighbors.get(neighbor_index) == "U") {
           if(y == 0) { // for the top-most row, it does not have neighbors upward
             continue;
           }
-          adjacent_cell = cells_map.get(String.valueOf((y - 1) + "," + x));
+          adjacent_cell = cells_map.get(String.valueOf(x + "," + (y - 1)));
         } else if(neighbors.get(neighbor_index) == "D") {
           if(y == maze_height - 1) { // for the bottom-most row, it does not have neighbors down
             continue;
           }
-          adjacent_cell = cells_map.get(String.valueOf(y + 1) + "," + x);
+          adjacent_cell = cells_map.get(String.valueOf(x + "," + (y + 1)));
         } else if(neighbors.get(neighbor_index) == "L") {
-          adjacent_cell = cells_map.get(String.valueOf(y + "," + (x - 1)));
+          adjacent_cell = cells_map.get(String.valueOf((x - 1) + "," + y));
         } else { // Right
-          adjacent_cell = cells_map.get(String.valueOf(y + "," + (x + 1)));
+          adjacent_cell = cells_map.get(String.valueOf((x + 1) + "," + y));
         }
 
         neighboring_cells.add(adjacent_cell);

@@ -21,6 +21,8 @@ Parse `svg` format image file to text
   - Related Question: Q1, Q2
 - Uninformed Search (BFS, DFS)
   - Related Question: Q3, Q5, Q6
+- Informed Search (A*)
+  - Related Question: Q7, Q8, Q9
 
 
 ## Questions
@@ -36,3 +38,5 @@ Parse `svg` format image file to text
   (`bfs`) Enter the list of states searched by BFS (h lines, each line containing w integers either 0 or 1, 1 means searched, comma separated).
 - **Q6**  
   (`dfs`) Enter the list of states searched by DFS (h lines, each line containing w integers either 0 or 1, 1 means searched, comma separated).
+- **Q7**  
+  (`distances`) Enter the Manhattan distances to the goal for each cell in the maze (h lines, each line containing w integers, comma separated).

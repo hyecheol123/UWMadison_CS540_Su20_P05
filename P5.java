@@ -142,6 +142,12 @@ public class P5 {
     result_file_writer.flush();
     System.out.println("Finish Q4");
 
+    // Q7: Enter the Manhattan distances to the goal for each cell in the maze
+    result_file_writer.append("@distances\n");
+    result_file_writer.append(getManhattanDistanceString(finish));
+    result_file_writer.flush();
+    System.out.println("Finish Q7");
+
     // close result file_writer
     result_file_writer.append("@answer_10\nNone");
     result_file_writer.close();
@@ -265,5 +271,30 @@ public class P5 {
     }
 
     return path;
+  }
+
+  /**
+   * Q7: Function to generate string for Menhattan Distance from Finish point to each cell
+   * 
+   * @param finish Cell indicates finish point of the maze
+   * @return String of Manhattan distance matrix
+   */
+  private static String getManhattanDistanceString(Cell finish) {
+    int fin_x = finish.getX();
+    int fin_y = finish.getY();
+    StringBuilder sb = new StringBuilder();
+
+    // Calculate Menhattan Distance for all cell and Generate String
+    for(int y = 0; y < HEIGHT; y++) {
+      for(int x = 0; x < WIDTH; x++) {
+        sb.append((Math.abs(fin_x - x) + Math.abs(fin_y - y)));
+        if(x != WIDTH - 1) {
+          sb.append(",");
+        }
+      }
+      sb.append("\n");
+    }
+    
+    return sb.toString();
   }
 }

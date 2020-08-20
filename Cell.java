@@ -35,6 +35,7 @@ public class Cell {
   private int x;
   private int y;
   private ArrayList<Cell> neighbors;
+  private Cell parent;
 
   /**
    * Constructor for Cell
@@ -45,6 +46,8 @@ public class Cell {
   public Cell(int x, int y) {
     this.x = x;
     this.y = y;
+    neighbors = null;
+    parent = null;
   }
 
   /**
@@ -81,5 +84,23 @@ public class Cell {
    */
   public ArrayList<Cell> getNeighbors() {
     return neighbors;
+  }
+
+  /**
+   * Public setter for parent
+   * 
+   * @param parent parent of current cell in the path
+   */
+  public void setParent(Cell parent) {
+    this.parent = parent;
+  }
+
+  /**
+   * Public access point for parent
+   * 
+   * @return parent indicating previous Cell visited
+   */
+  public Cell getParent() {
+    return parent;
   }
 }

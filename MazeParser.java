@@ -163,7 +163,7 @@ public class MazeParser {
     start_coordinate[1] = 0; // y coordinate of the starting point, assuming that it is at tht top
 
     for(int i = 0; i < maze_width; i++) {
-      ArrayList<String> neighbors = maze.get("0," + String.valueOf(i));
+      ArrayList<String> neighbors = maze.get(String.valueOf(i) + ",0");
 
       if(neighbors != null) { // for the cell whose neighbors exist,
         // search for the cell that does not have wall on the top

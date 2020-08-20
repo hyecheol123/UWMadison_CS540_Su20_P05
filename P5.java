@@ -101,7 +101,31 @@ public class P5 {
       }
       result_file_writer.append("\n");
     }
+    result_file_writer.flush();
     System.out.println("Finish Q5");
+
+    // Q6: Enter the list of states searched by DFS
+    is_visited = new boolean[WIDTH][HEIGHT]; // matrix to save DFS visited Cell information
+    dfs(start, finish, is_visited, false); // run DFS Algorithm
+    int dfs_count = 0;
+    result_file_writer.append("@dfs\n");
+    for(int row = 0; row < HEIGHT; row++) {
+      for(int col = 0; col < WIDTH; col++) {
+        if(is_visited[col][row] == true) {
+          result_file_writer.append("1");
+          dfs_count++;
+        } else {
+          result_file_writer.append("0");
+        }
+        if(col != (WIDTH - 1)) {
+          result_file_writer.append(",");
+        }
+      }
+      result_file_writer.append("\n");
+    }
+    result_file_writer.flush();
+    System.out.println("BFS Visited Node Count: " + dfs_count);
+    System.out.println("Finish Q6");
 
     // close result file_writer
     result_file_writer.append("@answer_10\nNone");
@@ -148,5 +172,48 @@ public class P5 {
     }
 
     return num_visited;
+  }
+
+  /**
+   * DFS Algorithm with path finding
+   * 
+   * @param current current Cell
+   * @param finish finishing Cell
+   * @param is_visited 2D boolean matrix indicating whether each cell has visited or not
+   * @param reached whether the algorithm reached to termination or not
+   * @return 
+   */
+  private static boolean dfs(Cell current, Cell finish, boolean[][] is_visited, boolean reached) {
+    // current Cell is visited
+    is_visited[current.getX()][current.getY()] = true;
+
+    // check for termination (reached finish cell)
+    if(((current.getX() == finish.getX()) && (current.getY() == finish.getY()))) {
+      reached = true;
+    }
+
+    // retrive parent
+    Cell parent = current.getParent();
+
+    // For all successor, call DFS recursively
+    ArrayList<Cell> successors = current.getNeighbors();
+    for(Cell successor : successors) {
+      if(reached == false) { // when reached to the final state, no need to search more
+        if(parent == null) { // no need to check parents' index
+          successor.setParent(current); // set parent of succssor (current is successor's parent)
+          reached = dfs(successor, finish, is_visited, reached); // call dfs with successor
+        } else {
+          // should not call dfs on parent
+          if(!((parent.getX() == successor.getX()) && parent.getY() == successor.getY())) {
+            successor.setParent(current); // set parent of succssor (current is successor's parent)
+            reached = dfs(successor, finish, is_visited, reached); // call dfs with successor
+          }
+        }
+      } else {
+        break;
+      }
+    }
+
+    return reached;
   }
 }

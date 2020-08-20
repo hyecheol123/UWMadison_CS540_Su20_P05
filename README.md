@@ -19,8 +19,8 @@ Parse `svg` format image file to text
 ## Tasks
 - Parse maze
   - Related Question: Q1, Q2
-- Uninformed Search (BFS)
-  - Related Question: Q5
+- Uninformed Search (BFS, DFS)
+  - Related Question: Q3, Q5, Q6
 
 
 ## Questions
@@ -28,5 +28,9 @@ Parse `svg` format image file to text
   (`plot`) Enter the plot of the maze
 - **Q2**  
   (`succ`) Enter the successor matrix of the maze (h lines, each line containing w strings, comma separated, each strings represent the list of possible successors, a subset of the characters "U" "D" "L" "R").
+- **Q3**  
+  (`solution`) Enter the action sequence (one line, a sequence of characters "U" "D" "L" "R", no comma in between them).
 - **Q5**  
   (`bfs`) Enter the list of states searched by BFS (h lines, each line containing w integers either 0 or 1, 1 means searched, comma separated).
+- **Q6**  
+  (`dfs`) Enter the list of states searched by DFS (h lines, each line containing w integers either 0 or 1, 1 means searched, comma separated).

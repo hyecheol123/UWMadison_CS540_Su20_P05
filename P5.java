@@ -129,11 +129,18 @@ public class P5 {
     System.out.println("Finish Q6");
 
     // Q3: Enter the action sequence
+    is_visited = new boolean[WIDTH][HEIGHT]; // matrix to save solution path
     result_file_writer.append("@solution\n");
-    result_file_writer.append(getSolutionPath(finish));
+    result_file_writer.append(getSolutionPath(finish, is_visited));
     result_file_writer.append("\n");
     result_file_writer.flush();
     System.out.println("Finish Q3");
+
+    // Q4: Enter the plot of the maze with the solution
+    result_file_writer.append("@plot_solution\n");
+    result_file_writer.append(maze_parser.getMazePlotString(is_visited));
+    result_file_writer.flush();
+    System.out.println("Finish Q4");
 
     // close result file_writer
     result_file_writer.append("@answer_10\nNone");
@@ -229,15 +236,18 @@ public class P5 {
    * Backtrack parent Cell from finish Cell and generate solution path String
    * 
    * @param finish Cell indicates finish point of the maze
+   * @param visited Matrix storing which cells are in the path
    * @return solution path
    */
-  private static String getSolutionPath(Cell finish) {
+  private static String getSolutionPath(Cell finish, boolean[][] visited) {
     String path = "";
     Cell current = finish;
+    visited[current.getX()][current.getY()] = true;
 
     while(current.getParent() != null) { // until reaching to the starting Cell
       int parent_x = current.getParent().getX();
       int parent_y = current.getParent().getY();
+      visited[parent_x][parent_y] = true;
 
       // Check for U, D, L, R and modify String
       if((parent_x == current.getX()) && (parent_y == current.getY() - 1)) { // D

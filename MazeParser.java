@@ -288,7 +288,11 @@ public class MazeParser {
         // Check for existence of "U" in neighbors array
         if(neighbors.contains("U")) {
           // not having wall above
-          sb.append("  +");
+          if((row == 0) && (visited[col][0] == true)) { // only for the maze entry
+            sb.append("##+");
+          } else {
+            sb.append("  +");
+          }
         } else {
           // having wall above
           sb.append("--+");
@@ -301,7 +305,7 @@ public class MazeParser {
       for(int col = 0; col < maze_width; col++) {
         ArrayList<String> neighbors = maze.get(String.valueOf(col + "," + row));
 
-        // TODO check for visited Cell
+        // Check for visited Cell
         if(visited[col][row] == true) {
           // Check for existence of "R" in neighbors array
           if(neighbors.contains("R")) {
@@ -332,8 +336,12 @@ public class MazeParser {
 
       // Check for existence of "D" in neighbors array
       if(neighbors.contains("D")) {
-        // not having wall below
-        sb.append("  +");
+        // not having wall above
+        if(visited[col][maze_height - 1] == true) {
+          sb.append("##+");
+        } else {
+          sb.append("  +");
+        }
       } else {
         // having wall below
         sb.append("--+");

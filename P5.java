@@ -216,4 +216,22 @@ public class P5 {
 
     return reached;
   }
+
+  /**
+   * Backtrack parent Cell from finish Cell and generate solution path String
+   * 
+   * @param finish Cell indicates finish point of the maze
+   * @return solution path
+   */
+  private static String printSolutionPath(Cell finish) {
+    String path = "";
+    Cell current = finish;
+
+    while(current.getParent() != null) { // until reaching to the starting Cell
+      // TODO retrieve parent X and Y value
+      // TODO Check for U, D, L, R and modify String
+    }
+
+    return path;
+  }
 }

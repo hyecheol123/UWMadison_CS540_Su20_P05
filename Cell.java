@@ -37,8 +37,8 @@ public class Cell implements Comparable<Cell> {
   private ArrayList<Cell> neighbors;
   private Cell parent;
   // For A* Search
-  private int g;
-  private int f; // g + h
+  private double g;
+  private double f; // g + h
 
   /**
    * Constructor for Cell
@@ -112,7 +112,7 @@ public class Cell implements Comparable<Cell> {
    * 
    * @return cost until this cell
    */
-  public int getG() {
+  public double getG() {
     return g;
   }
 
@@ -121,7 +121,7 @@ public class Cell implements Comparable<Cell> {
    * 
    * @param g new cost until this cell
    */
-  public void setG(int g) {
+  public void setG(double g) {
     this.g = g;
   }
 
@@ -130,7 +130,7 @@ public class Cell implements Comparable<Cell> {
    * 
    * @param f sum of cost until this cell and heuristic
    */
-  public void setF(int f) {
+  public void setF(double f) {
     this.f = f;
   }
 

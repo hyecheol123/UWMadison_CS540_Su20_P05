@@ -40,3 +40,7 @@ Parse `svg` format image file to text
   (`dfs`) Enter the list of states searched by DFS (h lines, each line containing w integers either 0 or 1, 1 means searched, comma separated).
 - **Q7**  
   (`distances`) Enter the Manhattan distances to the goal for each cell in the maze (h lines, each line containing w integers, comma separated).
+- **Q8**  
+  (`a_manhattan`) Enter the list of states searched by A* with Manhattan distance to the goal as the heuristic (h lines, each line containing w integers either 0 or 1, 1 means searched, comma separated).
+- **Q9**  
+  (`a_euclidean`) Enter the list of states searched by A* with Euclidean distance to the goal as the heuristic (h lines, each line containing w integers either 0 or 1, 1 means searched, comma separated).

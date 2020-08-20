@@ -149,6 +149,46 @@ public class P5 {
     result_file_writer.flush();
     System.out.println("Finish Q7");
 
+    // Q8: Enter the list of states searched by A* with Manhattan distance to the goal as the heuristic
+    is_visited = new boolean[WIDTH][HEIGHT]; // matrix to save A* (Manhattan) visited Cell information
+    System.out.println("A* Manhattan Visited Node Count: " + aStarSearch(start, finish, true, is_visited)); // A*
+    result_file_writer.append("@a_manhattan\n");
+    for(int row = 0; row < HEIGHT; row++) {
+      for(int col = 0; col < WIDTH; col++) {
+        if(is_visited[col][row] == true) {
+          result_file_writer.append("1");
+        } else {
+          result_file_writer.append("0");
+        }
+        if(col != (WIDTH - 1)) {
+          result_file_writer.append(",");
+        }
+      }
+      result_file_writer.append("\n");
+    }
+    result_file_writer.flush();
+    System.out.println("Finish Q8");
+
+    // Q9: Enter the list of states searched by A* with Euclidean distance to the goal as the heuristic
+    is_visited = new boolean[WIDTH][HEIGHT]; // matrix to save A* (Euclidean) visited Cell information
+    System.out.println("A* Euclidean Visited Node Count: " + aStarSearch(start, finish, false, is_visited)); // A*
+    result_file_writer.append("@a_euclidean\n");
+    for(int row = 0; row < HEIGHT; row++) {
+      for(int col = 0; col < WIDTH; col++) {
+        if(is_visited[col][row] == true) {
+          result_file_writer.append("1");
+        } else {
+          result_file_writer.append("0");
+        }
+        if(col != (WIDTH - 1)) {
+          result_file_writer.append(",");
+        }
+      }
+      result_file_writer.append("\n");
+    }
+    result_file_writer.flush();
+    System.out.println("Finish Q9");
+
     // close result file_writer
     result_file_writer.append("@answer_10\nNone");
     result_file_writer.close();
@@ -289,5 +329,60 @@ public class P5 {
     }
     
     return sb.toString();
+  }
+
+  /**
+   * A* Search Algorithm
+   * 
+   * @param start Cell indicates starting point of the maze
+   * @param finish Cell indicates finish point of the maze
+   * @param manhattan true if you want to use Manhattan Distance (L1 norm) for cost,
+   *                  false for Euclidean Distance (L2 norm)
+   * @param visited 2D boolean matrix indicating whether each cell has visited or not
+   * @return number of visited nodes
+   */
+  private static int aStarSearch(Cell start, Cell finish, boolean manhattan, boolean[][] visited) {
+    boolean reached = false;
+    PriorityQueue<Cell> pq = new PriorityQueue<>();
+    int visit_count = 0;
+
+    // initialize g cost for the start cell
+    start.setG(0);
+    pq.add(start);
+
+    while(!pq.isEmpty() && !reached) {
+      // get Cell with lowest f
+      Cell current = pq.poll();
+      visited[current.getX()][current.getY()] = true;
+
+      // Check for termination
+      if((current.getX() == finish.getX()) && (current.getY() == finish.getY())) {
+        reached = true;
+      }
+
+      // Search through all the neighbors
+      ArrayList<Cell> neighbors = current.getNeighbors();
+      for(Cell neighbor : neighbors) {
+        // For visited cell, we do not need to search again
+        if(visited[neighbor.getX()][neighbor.getY()] != true) {
+          // Set costs
+          neighbor.setG(current.getG() + 1); // went through one Cell
+          if(manhattan == true) { // use manhattan distance as heuristic
+            neighbor.setF(current.getG() + Math.abs(neighbor.getX() - finish.getX()) + 
+                                           Math.abs(neighbor.getY() - finish.getY()));
+          } else { // use Euclidean distance as heuristic
+            neighbor.setF(current.getG() + Math.sqrt(Math.pow((neighbor.getX() - finish.getX()), 2) +
+                                                     Math.pow((neighbor.getY() - finish.getY()), 2)));
+          }
+
+          // add to queue
+          pq.add(neighbor);
+
+          visit_count++;
+        }
+      }
+    }
+
+    return visit_count;
   }
 }

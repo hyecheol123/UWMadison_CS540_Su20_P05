@@ -127,6 +127,13 @@ public class P5 {
     System.out.println("BFS Visited Node Count: " + dfs_count);
     System.out.println("Finish Q6");
 
+    // Q3: Enter the action sequence
+    result_file_writer.append("@solution\n");
+    result_file_writer.append(getSolutionPath(finish));
+    result_file_writer.append("\n");
+    result_file_writer.flush();
+    System.out.println("Finish Q3");
+
     // close result file_writer
     result_file_writer.append("@answer_10\nNone");
     result_file_writer.close();
@@ -223,13 +230,27 @@ public class P5 {
    * @param finish Cell indicates finish point of the maze
    * @return solution path
    */
-  private static String printSolutionPath(Cell finish) {
+  private static String getSolutionPath(Cell finish) {
     String path = "";
     Cell current = finish;
 
     while(current.getParent() != null) { // until reaching to the starting Cell
-      // TODO retrieve parent X and Y value
-      // TODO Check for U, D, L, R and modify String
+      int parent_x = current.getParent().getX();
+      int parent_y = current.getParent().getY();
+
+      // Check for U, D, L, R and modify String
+      if((parent_x == current.getX()) && (parent_y == current.getY() - 1)) { // D
+        path = "D" + path;
+      } else if((parent_x == current.getX()) && (parent_y == current.getY() + 1)) { // U
+        path = "U" + path;
+      } else if((parent_x == current.getX() - 1) && (parent_y == current.getY())) { // R
+        path = "R" + path;
+      } else { // L
+        path = "L" + path;
+      }
+
+      // go to parent
+      current = current.getParent();
     }
 
     return path;

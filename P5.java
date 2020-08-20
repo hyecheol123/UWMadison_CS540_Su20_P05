@@ -73,8 +73,9 @@ public class P5 {
     System.out.println("Finish Parsing SVG Image");
 
     // Q1: Enter the plot of the maze
+    boolean[][] is_visited = new boolean[WIDTH][HEIGHT]; // dummy matrix
     result_file_writer.append("@plot\n");
-    result_file_writer.append(maze_parser.getMazePlotString());
+    result_file_writer.append(maze_parser.getMazePlotString(is_visited));
     result_file_writer.flush();
     System.out.println("Finish Q1");
 
@@ -85,7 +86,7 @@ public class P5 {
     System.out.println("Finish Q2");
 
     // Q5: Enter the list of states searched by BFS
-    boolean[][] is_visited = new boolean[WIDTH][HEIGHT]; // matrix to save BFS visited Cell information
+    is_visited = new boolean[WIDTH][HEIGHT]; // matrix to save BFS visited Cell information
     System.out.println("BFS Visited Node Count: " + bfs(start, finish, is_visited)); // search path by bfs
     result_file_writer.append("@bfs\n");
     for(int row = 0; row < HEIGHT; row++) {

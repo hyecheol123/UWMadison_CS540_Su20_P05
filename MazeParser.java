@@ -273,9 +273,10 @@ public class MazeParser {
    * Generate string of maze plot
    * using | for vertical walls and -- for horizontal walls and + for intersections
    * 
+   * @param visited boolean matrix indicating visited Cell
    * @return maze plot string
    */
-  public String getMazePlotString() {
+  public String getMazePlotString(boolean[][] visited) {
     StringBuilder sb = new StringBuilder();
 
     for(int row = 0; row < maze_height; row++) {
@@ -300,13 +301,25 @@ public class MazeParser {
       for(int col = 0; col < maze_width; col++) {
         ArrayList<String> neighbors = maze.get(String.valueOf(col + "," + row));
 
-        // Check for existence of "R" in neighbors array
-        if(neighbors.contains("R")) {
-          // not having wall rightside
-          sb.append("   ");
+        // TODO check for visited Cell
+        if(visited[col][row] == true) {
+          // Check for existence of "R" in neighbors array
+          if(neighbors.contains("R")) {
+            // not having wall rightside
+            sb.append("## ");
+          } else {
+            // having wall rightside
+            sb.append("##|");
+          }
         } else {
-          // having wall rightside
-          sb.append("  |");
+          // Check for existence of "R" in neighbors array
+          if(neighbors.contains("R")) {
+            // not having wall rightside
+            sb.append("   ");
+          } else {
+            // having wall rightside
+            sb.append("  |");
+          }
         }
       }
       sb.append("\n");

@@ -30,6 +30,8 @@ Parse `svg` format image file to text
   (`succ`) Enter the successor matrix of the maze (h lines, each line containing w strings, comma separated, each strings represent the list of possible successors, a subset of the characters "U" "D" "L" "R").
 - **Q3**  
   (`solution`) Enter the action sequence (one line, a sequence of characters "U" "D" "L" "R", no comma in between them).
+- **Q4**  
+  (`plot_solution`) Enter the plot of the maze with the solution
 - **Q5**  
   (`bfs`) Enter the list of states searched by BFS (h lines, each line containing w integers either 0 or 1, 1 means searched, comma separated).
 - **Q6**  
